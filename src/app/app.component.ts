@@ -41,6 +41,7 @@ export class AppComponent {
     //   console.log('Form Submitted!', form);
     // }
 
+    //tested for SourceTree
   onSubmit() {
     // console.log(this.signUpForm);
     this.submitted = true;
