@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!--<form (ngSubmit)="onSubmit(f)" #f="ngForm"> another way using view child and below piece of code-->
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div id="user-data"
+             ngModelGroup="userData"
+             #userData="ngModelGroup">
+          <div class="form-group">
+            <label for="username">UserName</label>
+            <input type="text"
+                   id="username"
+                   class="form-control"
+                   ngModel
+                   name="UserName"
+                   required>
+          </div>
+          <button class="btn btn-default"
+                  type="button"
+                  style="color: lightskyblue"
+                  (click)="suggestUserName()">Browse for Names</button>
+          <div class="form-group">
+            <label for="email">EMail-Id</label>
+            <input type="email"
+                   id="email"
+                   class="form-control"
+                   ngModel
+                   name="EMail"
+                   required
+                   email
+                   #Email>
+            <span class="help-block" *ngIf="!Email.valid && Email.touched">Please Enter Valid ID!</span>
+          </div>
+          <p *ngIf="!userData.valid && userData.touched  ">UserData InValid!</p>
+
+        </div>
+        <div class="form-group">
+          <label for="secret">Secret Questions</label>
+          <select id="secret"
+                  class="form-control"
+                  [ngModel]="defaultQuestion"
+                  name="Secret">
+            <!--we can use ngModel as event,data and 2-way biding depend on situation.now selecting secret question default-->
+            <option value="PET">U'r First Pet?</option>
+            <option value="CAR">U'r First Car?</option>
+            <option value="FRIEND">U'r Best Friend?</option>
+            <option value="PLACE">U'r Best Tourist Place</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <textarea
+            name="QuestionAnswer"
+            rows="2"
+            class="form-control"
+            [(ngModel)]="answer">
+          </textarea>
+          <p>U R reply: {{ answer}}</p>
+        </div>
+        <div class="radio" *ngFor="let sex of genders">
+          <label>
+            <input type="radio"
+                   name="Gender"
+                   ngModel
+                   [value]="sex"
+                   required>
+            {{ sex }}
+            <!--where name=gender is shown to ocnsole for reference no need to match.-->
+          </label>
+        </div>
+        <button class="btn btn-primary"
+                type="submit"
+                [disabled]="f.invalid">Submit</button>
+         <!--can write [disabled]=!f.valid-->
+      </form>
+    </div>
+  </div>
+  <br><br>
+  <div class="row" *ngIf="submitted">
+    <div class="col-xs-12">
+      <h3>Your Data:</h3>
+      <p><b>Name: </b>{{user.USERNAME}}</p>
+      <p><b>Email id: </b>{{user.EMAIL}}</p>
+      <p><b>Gender:</b> {{user.GENDER}}</p>
+      <p><b>Secret Question:</b> Your First/Best  {{user.SECRETQUESTION}}</p>
+      <p><b>Answered:</b> {{user.ANSWER}}</p>
+    </div>
+  </div>
+</div>
